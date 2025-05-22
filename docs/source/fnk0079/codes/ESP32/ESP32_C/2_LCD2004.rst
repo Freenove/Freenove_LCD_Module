@@ -1,0 +1,184 @@
+##############################################################################
+Chapter 2 LCD2004
+##############################################################################
+
+In the previous chapter, we studied the LCD2004 display. In order to display more content,In this chapter, we will learn about the LCD2004 Display Screen.
+
+Project 2.1 Display the String on I2C LCD2004
+***********************************************************
+
+In this section we learn how to use LCD2004 to display something.
+
+Component Knowledge
+=======================================
+
+I2C communication
+--------------------------------------
+
+I2C (Inter-Integrated Circuit) is a two-wire serial communication mode, which can be used for the connection of micro controllers and their peripheral equipment. Devices using I2C communication must be connected to the serial data (SDA) line, and serial clock (SCL) line (called I2C bus). Each device has a unique address and can be used as a transmitter or receiver to communicate with devices connected to the bus.
+
+LCD2004 communication
+--------------------------------------
+
+The LCD2004 display screen can display 4 lines of characters in 20 columns. It is capable of displaying numbers, letters, symbols, ASCII code and so on. As shown below is a monochrome LCD2004 display screen along with its circuit pin diagram.
+
+.. image:: ../../_static/imgs/ESP32/C/2_I2C_LCD2004/Chapter02_00.png
+    :align: center
+
+I2C LCD2004 display screen integrates a I2C interface, which connects the serial-input & parallel-output module to the LCD2004 display screen. This allows us to only use 4 lines to the operate the LCD2004.
+
+.. image:: ../../_static/imgs/ESP32/C/2_I2C_LCD2004/Chapter02_01.png
+    :align: center
+
+The serial-to-parallel IC chip used in this module is PCF8574T (PCF8574AT), and its default I2C address is 0x27(0x3F). 
+
+Below is the PCF8574 pin schematic diagram and the block pin diagram:
+
+.. list-table:: 
+    :header-rows: 1
+
+    * - PCF8574 chip pin diagram
+      - PCF8574 module pin diagram 
+
+    * - |Chapter02_02|
+      - |Chapter02_03|
+
+.. |Chapter02_02| image:: ../../_static/imgs/ESP32/C/2_I2C_LCD2004/Chapter02_02.png
+.. |Chapter02_03| image:: ../../_static/imgs/ESP32/C/2_I2C_LCD2004/Chapter02_03.png
+
+PCF8574 module pin and LCD2004 pin are corresponding to each other and connected with each other:
+
+.. image:: ../../_static/imgs/ESP32/C/2_I2C_LCD2004/Chapter02_04.png
+    :align: center
+
+So we only need 4 pins to control the 16 pins of the LCD2004 Display Screen through the I2C interface.
+
+In this project, we will use the I2C LCD2004 to display some static characters and dynamic variables.
+
+Circuit
+=======================================
+
+.. list-table:: 
+    
+    * - Schematic diagram
+    * - |Chapter02_05|
+
+    * - Circuit connection
+    * - |Chapter02_06|
+
+.. |Chapter02_05| image:: ../../_static/imgs/ESP32/C/2_I2C_LCD2004/Chapter02_05.png
+.. |Chapter02_06| image:: ../../_static/imgs/ESP32/C/2_I2C_LCD2004/Chapter02_06.png
+
+Sketch
+========================================
+
+Before writing code, we need to import the library needed. Skip this section if you have already installed it, or proceed if you haven't.
+
+How to install the library
+----------------------------------------
+
+We use the third party library LiquidCrystal I2C. If you haven't installed it yet, please do so before learning. The steps to add third-party Libraries are as follows: open arduino->Sketch->Include library-> Manage libraries. Enter " LiquidCrystal I2C" in the search bar and select " LiquidCrystal I2C " for installation.
+
+.. image:: ../../_static/imgs/ESP32/C/2_I2C_LCD2004/Chapter02_07.png
+    :align: center
+
+There is another way you can install libraries.
+
+Click “Add .ZIP Library...” and then find **LiquidCrystal_I2C.zip** in libraries folder (this folder is in the folder unzipped form the ZIP file we provided). This library can facilitate our operation of I2C LCD2004.
+
+Use I2C LCD 2004 to display characters and variables.
+
+Sketch_2.1_Display_the_string_on_LCD2004
+----------------------------------------------------------
+
+.. image:: ../../_static/imgs/ESP32/C/2_I2C_LCD2004/Chapter02_08.png
+    :align: center
+
+Compile and upload the code to ESP32-WROVER and the LCD2004 displays characters.
+
+.. image:: ../../_static/imgs/ESP32/C/2_I2C_LCD2004/Chapter02_09.png
+    :align: center
+
+.. note::
+    
+    If you cannot see anything on the display or the display is not clear, try rotating the white knob on back of LCD2004 slowly, which adjusts the contrast, until the screen can display clearly.
+
+The following is the program code:
+
+.. literalinclude:: ../../../../freenove_Kit/Freenove_LCD_Module_for_ESP32/C/Sketches/Sketch_2.1_Display_the_string_on_LCD2004/Sketch_2.1_Display_the_string_on_LCD2004.ino
+    :linenos:
+    :language: c
+    :dedent:
+
+Include header file of Liquid Crystal Display (LCD)2004 and I2C.
+
+.. literalinclude:: ../../../../freenove_Kit/Freenove_LCD_Module_for_ESP32/C/Sketches/Sketch_2.1_Display_the_string_on_LCD2004/Sketch_2.1_Display_the_string_on_LCD2004.ino
+    :linenos:
+    :language: c
+    :lines: 7-8
+    :dedent:
+
+Instantiate the I2C LCD2004 screen. It should be noted here that if your LCD driver chip uses PCF8574T, set the I2C address to 0x27, and if uses PCF8574AT, set the I2C address to 0x3F.
+
+.. literalinclude:: ../../../../freenove_Kit/Freenove_LCD_Module_for_ESP32/C/Sketches/Sketch_2.1_Display_the_string_on_LCD2004/Sketch_2.1_Display_the_string_on_LCD2004.ino
+    :linenos:
+    :language: c
+    :lines: 17-17
+    :dedent:
+
+Initialize I2C and set its pins as 13,14. And then initialize LCD2004 and turn on the backlight of LCD.
+
+.. literalinclude:: ../../../../freenove_Kit/Freenove_LCD_Module_for_ESP32/C/Sketches/Sketch_2.1_Display_the_string_on_LCD2004/Sketch_2.1_Display_the_string_on_LCD2004.ino
+    :linenos:
+    :language: c
+    :lines: 20-22
+    :dedent:
+
+Move the cursor to the third row, first column, and then display the character.
+
+.. literalinclude:: ../../../../freenove_Kit/Freenove_LCD_Module_for_ESP32/C/Sketches/Sketch_2.1_Display_the_string_on_LCD2004/Sketch_2.1_Display_the_string_on_LCD2004.ino
+    :linenos:
+    :language: c
+    :lines: 30-31
+    :dedent:
+
+Print the number on the fourth line of LCD2004.
+
+.. literalinclude:: ../../../../freenove_Kit/Freenove_LCD_Module_for_ESP32/C/Sketches/Sketch_2.1_Display_the_string_on_LCD2004/Sketch_2.1_Display_the_string_on_LCD2004.ino
+    :linenos:
+    :language: c
+    :lines: 35-40
+    :dedent:
+
+Reference
+-------------------------------
+
+.. py:function:: class LiquidCrystal 
+    
+    The LiquidCrystal class can manipulate common LCD screens. The first step is defining an object of
+    
+    LiquidCrystal, for example:
+    
+        :blue:`LiquidCrystal_I2C` **lcd(0x27,20,4);**
+    
+            Instantiate the Lcd2004 and set the I2C address to 0x27, with 20 columns per row and 4 rows per column.
+    
+        **init();**
+    
+            Initializes the Lcd2004's device
+    
+        **backlight();**
+    
+            Turn on Lcd2004's backlight.
+    
+        **setCursor(column,row);**
+    
+            Sets the screen's column and row.
+    
+            column: The range is 0 to 19.
+    
+            row: The range is 0 to 3.
+    
+        **print(String);**
+    
+            Print the character string on Lcd2004.
