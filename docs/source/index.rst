@@ -38,3 +38,4 @@ This product provides the following online documents.
    fnk0079/codes/ESP8266.rst
    fnk0079/codes/Raspberry_Pi.rst
    fnk0079/codes/Raspberry_Pi_Pico.rst
+   fnk0079/codes/I2C_ADDRESS.rst

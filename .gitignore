@@ -1,2 +1,7 @@
 docs/build
 *.mo
+docs/source/freenove_Kit
+.venv
+.vscode
+run_preview.py
+start_preview.bat
